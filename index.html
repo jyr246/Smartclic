@@ -1,0 +1,165 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Smartclic</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0a111f">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+
+<style>
+:root{--bg:#0a111f;--card:#121b2e;--tx:#f1f5fb;--mut:#8b97ad;--ac:#34d9a0;--acx:#06281c;--bd:#1f2b42;--bad:#f87171;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f4f7fb;--card:#fff;--tx:#0f1a2b;--mut:#64708a;--ac:#12b886;--acx:#fff;--bd:#e2e8f2;color-scheme:light}}
+:root[data-theme="light"]{--bg:#f4f7fb;--card:#fff;--tx:#0f1a2b;--mut:#64708a;--ac:#12b886;--acx:#fff;--bd:#e2e8f2;color-scheme:light}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--tx);font:15px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+#app{max-width:480px;margin:0 auto;padding:16px 16px 110px}
+h1{font-size:24px;margin:8px 0}h3{font-size:16px;margin:18px 0 8px}p{margin:6px 0}
+.m{color:var(--mut);font-size:13px}.r{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.cd{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;margin:10px 0}
+.row{display:flex;align-items:center;gap:12px}
+.ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:20px;flex:none}
+.av{background:var(--ac);color:var(--acx);font-weight:700;font-size:15px}
+.big{font-size:30px;font-weight:700}
+.btn,.btn2{display:block;width:100%;padding:13px;border-radius:999px;border:0;font:inherit;font-weight:600;text-align:center;text-decoration:none;margin:10px 0;cursor:pointer}
+.btn{background:var(--ac);color:var(--acx)}.btn2{background:var(--card);color:var(--tx);border:1px solid var(--bd)}.btn2.x{color:var(--bad)}
+.lk{background:none;border:0;color:var(--ac);font:inherit;padding:4px;cursor:pointer}
+input,select{width:100%;padding:12px;margin:5px 0;border:1px solid var(--bd);border-radius:12px;background:var(--bg);color:var(--tx);font:inherit}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg{display:flex;background:var(--card);border:1px solid var(--bd);border-radius:999px;padding:3px;margin:10px 0}
+.seg button{flex:1;border:0;background:none;color:var(--mut);padding:9px;border-radius:999px;font:inherit;font-size:14px}
+.seg button.on{background:var(--ac);color:var(--acx);font-weight:600}
+.dn{width:140px;height:140px;border-radius:50%;display:grid;place-items:center;flex:none}
+.dn>div{width:100px;height:100px;border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;text-align:center;font-size:14px;font-weight:700}
+.dn.s{width:96px;height:96px}.dn.s>div{width:66px;height:66px}
+.dot{width:12px;height:12px;border-radius:50%;flex:none}
+.tg{padding:10px 0;border-bottom:1px solid var(--bd)}
+.lk2{padding:12px 0;border-bottom:1px solid var(--bd);justify-content:space-between;cursor:pointer}
+input.sw{appearance:none;-webkit-appearance:none;width:44px;height:26px;border-radius:13px;background:var(--bd);position:relative;margin:0;flex:none;padding:0;border:0}
+input.sw:checked{background:var(--ac)}
+input.sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.15s}
+input.sw:checked::after{left:21px}
+input.ck{width:22px;height:22px;margin:0;accent-color:var(--ac);padding:0}
+.acts{display:flex;flex-wrap:wrap;gap:8px}.acts .btn2{width:auto;padding:10px 14px;margin:6px 0}
+.sp{padding-top:30px;text-align:center}
+.lg{width:72px;height:72px;margin:20px auto;border-radius:22px;background:linear-gradient(135deg,#34d9a0,#38bdf8);color:#04141f;font-size:40px;font-weight:800;display:grid;place-items:center}
+.ft{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:30px 0}.ft div{font-size:12px;color:var(--mut)}.ft b{display:block;font-size:26px}
+#nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--bd);justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px);z-index:10}
+#nav>div{max-width:480px;width:100%;display:flex}
+#nav button{flex:1;background:none;border:0;color:var(--mut);padding:8px 0;font:inherit;font-size:11px;display:flex;flex-direction:column;align-items:center}
+#nav button span{font-size:20px}#nav button.on{color:var(--ac)}
+#nav .fab span{width:46px;height:46px;border-radius:50%;background:var(--ac);color:var(--acx);display:grid;place-items:center;font-size:28px;margin-top:-18px}
+</style></head><body>
+<div id="app"><div id="v"></div></div><div id="nav"></div>
+<script>
+const $=id=>document.getElementById(id);
+const CATS={Hogar:["🏠","#f59e0b"],Entretenimiento:["🎬","#8b7cf6"],Telecomunicaciones:["📡","#38bdf8"],Transporte:["🚗","#fbbf24"],Otros:["🧾","#f472b6"]};
+const FQ={m:"mes",t:"trim.",a:"año"};
+const TG=[["fact","Vencimiento de facturas"],["ren","Renovación de suscripciones"],["high","Gastos altos (más de 100 €/mes)"],["lim","Límite de gasto mensual"],["cust","Recordatorios personalizados"]];
+let S=null;try{S=JSON.parse(localStorage.getItem("sc2"))}catch(e){}
+if(!S){S={items:[],p:null,cfg:{fact:0,ren:0,high:0,lim:0,cust:0,limV:300,fr:"s",days:3,saved:0},cb:[]};try{S.items=JSON.parse(localStorage.getItem("sc")||"[]")}catch(e){}}
+const save=()=>{try{localStorage.setItem("sc2",JSON.stringify(S));return true}catch(e){return false}};
+let scr=S.p?"home":"splash",cur=null,sel=new Set(),prop={},fileObj=null,V={mode:"ind",per:"m",flt:"all"};
+const E=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const F=n=>n.toLocaleString("es-ES",{style:"currency",currency:"EUR"});
+const mo=i=>i.f==="m"?i.a:i.f==="t"?i.a/3:i.a/12;
+const sum=l=>l.reduce((s,i)=>s+mo(i),0);
+const dy=d=>d?Math.ceil((new Date(d+"T00:00")-new Date(new Date().toDateString()))/864e5):null;
+const dd=d=>{const n=dy(d);return n===null?"Sin fecha":n<0?"Vencido":n===0?"Hoy":"En "+n+" d"};
+const fd=d=>new Date(d+"T00:00").toLocaleDateString("es-ES",{day:"numeric",month:"short",year:"numeric"});
+const url=u=>/^https?:/i.test(u)?u:"https://"+u;
+const BR=[["netflix","N","#e50914","netflix.com","Entretenimiento"],["hbo","HBO","#5b2bd9","hbomax.com","Entretenimiento"],["disney","D+","#113ccf","disneyplus.com","Entretenimiento"],["prime","P","#00a8e1","primevideo.com","Entretenimiento"],["amazon","a","#ff9900","amazon.es","Otros"],["spotify","S","#1db954","spotify.com","Entretenimiento"],["youtube","▶","#ff0000","youtube.com","Entretenimiento"],["apple","A","#555","apple.com","Otros"],["dazn","DZ","#222","dazn.com","Entretenimiento"],["filmin","F","#f43f5e","filmin.es","Entretenimiento"],["movistar","M","#019df4","movistar.es","Telecomunicaciones"],["vodafone","V","#e60000","vodafone.es","Telecomunicaciones"],["orange","O","#ff7900","orange.es","Telecomunicaciones"],["yoigo","Y","#e6b800","yoigo.com","Telecomunicaciones"],["digi","D","#0058ff","digimobil.es","Telecomunicaciones"],["endesa","e","#1560bd","endesa.com","Hogar"],["iberdrola","I","#62a420","iberdrola.es","Hogar"],["naturgy","N","#f58220","naturgy.es","Hogar"],["repsol","R","#f97316","repsol.es","Transporte"],["mapfre","M","#d81e05","mapfre.es","Otros"],["axa","AXA","#00008f","axa.es","Otros"],["allianz","A","#003781","allianz.es","Otros"],["adobe","A","#fa0f00","adobe.com","Otros"],["microsoft","MS","#00a4ef","microsoft.com","Otros"],["playstation","PS","#003791","playstation.com","Entretenimiento"]];
+const brand=n=>{const t=String(n||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");return BR.find(b=>t.includes(b[0]))};
+const ic=i=>{const b=brand(i.n);if(b)return `<span class="ic" style="background:${b[2]};color:#fff;font-weight:800;font-size:${b[1].length>1?13:20}px">${b[1]}</span>`;const c=CATS[i.c]||CATS.Otros;return `<span class="ic" style="background:${c[1]}33">${c[0]}</span>`};
+const row=i=>`<div class="cd row" onclick="go('det','${i.id}')">${ic(i)}<div style="flex:1;min-width:0"><b>${E(i.n)}</b><div class="m">${i.d?fd(i.d)+" · "+dd(i.d):"Sin fecha"}</div></div><div style="text-align:right"><b>${F(i.a)}</b><div class="m">/${FQ[i.f]}</div></div></div>`;
+const seg=(k,o,cur)=>`<div class="seg">${o.map(x=>`<button class="${x[0]===cur?"on":""}" onclick="pick('${k}','${x[0]}')">${x[1]}</button>`).join("")}</div>`;
+const catData=k=>Object.keys(CATS).map(n=>[n,sum(S.items.filter(i=>(i.c||"Otros")===n))*k,CATS[n][1]]);
+function donut(d,lab,cls){const T=d.reduce((s,x)=>s+x[1],0)||1;let a=0;const g=d.filter(x=>x[1]>0).map(x=>{const s=a;a+=x[1]/T*100;return `${x[2]} ${s}% ${a}%`}).join(",")||"var(--bd) 0 100%";return `<div class="dn ${cls||""}" style="background:conic-gradient(${g})"><div>${lab||""}</div></div>`}
+function alerts(){const c=S.cfg,a=[];
+S.items.forEach(i=>{const n=dy(i.d);if(n===null)return;const e=+(i.r||c.days);const on=(i.r&&c.cust)||(i.t==="rec"?c.fact:c.ren);if(on&&n<=e)a.push([i.id,(i.t==="rec"?"Vencimiento: ":"Renovación: ")+i.n,dd(i.d)])});
+if(c.high)S.items.filter(i=>mo(i)>=100).forEach(i=>a.push([i.id,"Gasto alto: "+i.n,F(mo(i))+" al mes"]));
+if(c.lim&&sum(S.items)>c.limV)a.push([null,"Superas tu límite mensual",F(sum(S.items))+" de "+F(c.limV)]);
+return a}
+const bn=a=>`<div class="cd" style="border-color:var(--ac)">${a.map(x=>`<div class="row lk2" ${x[0]?`onclick="go('det','${x[0]}')"`:""}><span>🔔</span><div style="flex:1"><b>${E(x[1])}</b><div class="m">${E(x[2])}</div></div></div>`).join("")}</div>`;
+function splash(){return `<div class="sp"><div class="lg">S</div><h1 style="font-size:34px">Smartclic</h1><p class="m">Tus gastos, más simples</p><div class="ft"><div><b>💳</b>Organiza tus gastos</div><div><b>🔗</b>Combina servicios</div><div><b>🔔</b>Recibe avisos cuando quieras</div></div><button class="btn" onclick="go('${S.p?"home":"reg"}')">Comenzar</button><button class="lk" onclick="go('${S.p?"home":"reg"}')">Ya tengo cuenta</button></div>`}
+function reg(){return `<div class="sp" style="text-align:left"><h1>Crear cuenta</h1><p class="m">Gestiona tus gastos de forma fácil y sin complicaciones.</p><input id="rn" placeholder="Nombre"><input id="re" type="email" placeholder="Correo electrónico"><button class="btn" onclick="doReg()">Registrarse</button><p class="m">Por ahora tus datos se guardan solo en este dispositivo.</p></div>`}
+function doReg(){const n=$("rn").value.trim();if(!n){alert("Escribe tu nombre");return}S.p={n,e:$("re").value.trim()};save();go("home")}
+function home(){const m=sum(S.items),d=catData(1),al=alerts();
+return `<h1>Hola, ${E(S.p?S.p.n:"")}</h1><p class="m">Aquí tienes un resumen de tus gastos</p>${al.length?bn(al.slice(0,3)):""}
+<div class="cd r"><div><div class="m">Gasto mensual actual</div><div class="big">${F(m)}</div><div class="m">${S.items.length} gastos registrados</div></div>${donut(d,"","s")}</div>
+<div class="r"><h3>Tus categorías</h3><button class="lk" onclick="go('stats')">Estadísticas</button></div>
+${d.map(c=>`<div class="cd row"><span class="ic" style="background:${c[2]}33">${CATS[c[0]][0]}</span><b style="flex:1">${c[0]}</b><b>${F(c[1])}</b></div>`).join("")}
+<button class="btn2" onclick="go('gastos')">Ver todos los gastos</button>`}
+function gastos(){const l=S.items.filter(i=>V.flt==="all"||i.t===V.flt).sort((x,y)=>(x.d||"9")>(y.d||"9")?1:-1);
+return `<div class="r"><h1>Gastos</h1><button class="lk" onclick="go('stats')">Estadísticas</button></div>${seg("flt",[["all","Todos"],["sub","Suscripciones"],["rec","Recibos"]],V.flt)}<div class="cd r"><span class="m">Total</span><b>${F(sum(l))} / mes</b></div>${l.length?l.map(row).join(""):`<p class="m">Aún no hay gastos. Pulsa + para añadir el primero.</p>`}`}
+function stats(){const k=V.per==="m"?1:V.per==="t"?3:12,d=catData(k),T=sum(S.items)*k;
+return `<div class="r"><button class="lk" onclick="go('home')">‹ Atrás</button><b>Estadísticas</b><span></span></div>${seg("per",[["m","Mensual"],["t","Trimestral"],["a","Anual"]],V.per)}<div class="cd" style="display:grid;place-items:center"><p class="m">Gasto total</p>${donut(d,F(T))}</div>${d.map(c=>`<div class="cd row"><span class="dot" style="background:${c[2]}"></span><b style="flex:1">${c[0]}</b><b>${F(c[1])}</b><span class="m">${T?Math.round(c[1]/T*100):0}%</span></div>`).join("")}`}
+function det(){const i=S.items.find(x=>x.id===cur);if(!i)return gastos();
+return `<div class="r"><button class="lk" onclick="go('gastos')">‹ Atrás</button><b>${E(i.n)}</b><span></span></div>
+<div class="cd"><div class="big">${F(i.a)}<span class="m"> /${FQ[i.f]}</span></div><div class="m">${i.t==="sub"?"Suscripción":"Recibo"} · ${i.c||"Otros"} · ≈ ${F(mo(i))} al mes</div><div class="m">Vencimiento: ${i.d?fd(i.d)+" ("+dd(i.d)+")":"sin fecha"}</div></div>
+<div class="cd"><b>Contacto con la compañía</b><div class="acts">${i.p?`<a class="btn2" href="tel:${E(i.p)}">📞 ${E(i.p)}</a>`:""}${i.w?`<a class="btn2" href="${E(url(i.w))}" target="_blank" rel="noopener">🌐 Página web</a>`:""}${!i.p?`<a class="btn2" href="https://www.google.com/search?q=${encodeURIComponent(i.n+" atención al cliente teléfono")}" target="_blank" rel="noopener">🔎 Buscar teléfono</a>`:""}</div></div>
+${i.file?`<a class="btn2" href="${i.file}" download="${E(i.fn)}">📎 ${E(i.fn)}</a>`:i.fn?`<p class="m">📎 ${E(i.fn)}</p>`:""}
+${i.d?`<button class="btn2" onclick="ics('${i.id}')">📅 Añadir al calendario</button>`:""}<button class="btn2 x" onclick="del('${i.id}')">Eliminar</button>`}
+function del(id){if(confirm("¿Eliminar este gasto?")){S.items=S.items.filter(i=>i.id!==id);save();go("gastos")}}
+function add(){return `<h1>Añadir gasto</h1>${addI()}`}
+function addI(){const co=Object.keys(CATS).map(c=>`<option>${c}</option>`).join("");
+return `<div class="cd"><select id="t"><option value="sub">Suscripción</option><option value="rec">Recibo</option></select><input id="n" placeholder="Nombre (Netflix, seguro del coche…)" oninput="auto()"><div id="ah" class="m"></div><div class="g2"><input id="a" type="number" step="0.01" placeholder="Importe €"><select id="f"><option value="m">Mensual</option><option value="t">Trimestral</option><option value="a">Anual</option></select></div><select id="c">${co}</select><div class="m">Próximo vencimiento</div><input id="d" type="date"><input id="p" type="tel" placeholder="Teléfono de atención al cliente"><input id="w" placeholder="Página web de contacto"><button class="btn2" onclick="findC()">🔎 Buscar teléfono y web automáticamente</button><div id="fc"></div><div class="m">Avisarme antes (opcional)</div><select id="r"><option value="">Según ajuste general</option><option value="1">1 día antes</option><option value="3">3 días antes</option><option value="7">7 días antes</option><option value="15">15 días antes</option></select><div class="m">Adjuntar recibo (foto, PDF…)</div><input id="fl" type="file" accept="image/*,application/pdf,.doc,.docx" onchange="fileSel()"><div id="rd"></div></div><button class="btn" onclick="addIt()">Guardar</button>`}
+function addIt(){const g=x=>$(x).value.trim(),a=parseFloat(g("a"));if(!g("n")||isNaN(a)){alert("Pon al menos nombre e importe");return}
+const it={id:"i"+Date.now(),t:g("t"),n:g("n"),a,f:g("f"),c:g("c"),d:g("d"),p:g("p"),w:g("w"),r:g("r")},file=$("fl").files[0];
+const fin=()=>{S.items.push(it);if(!save()&&it.file){delete it.file;save();alert("El archivo es muy grande para guardarlo; se guardó solo su nombre.")}go("gastos")};
+if(file){it.fn=file.name;if(file.size>1.2e6){fin();return}const r=new FileReader();r.onload=()=>{it.file=r.result;fin()};r.readAsDataURL(file)}else fin()}
+function comb(){return `<h1>Combinaciones</h1><div class="cd"><div class="m">Total combinado</div><div class="big" id="ct"></div><div id="cx" class="m"></div><div class="acts"><button class="btn2" onclick="selAll(1)">Seleccionar todo</button><button class="btn2" onclick="selAll(0)">Limpiar</button></div></div><p class="m">Marca los gastos que quieras sumar y la app hace la cuenta.</p><input placeholder="Buscar servicio" oninput="flt(this.value)">
+${S.items.length?S.items.map(i=>`<label class="cd row cbi" data-n="${E(i.n.toLowerCase())}">${ic(i)}<div style="flex:1"><b>${E(i.n)}</b><div class="m">${F(mo(i))}/mes</div></div><input type="checkbox" class="ck" ${sel.has(i.id)?"checked":""} onchange="tg('${i.id}')"></label>`).join(""):`<p class="m">Primero añade algún gasto.</p>`}
+<button class="btn" onclick="saveC()">Guardar combinación</button>
+${S.cb.length?`<h3>Combinaciones guardadas</h3>`+S.cb.map((c,k)=>`<div class="cd r"><div><b>${E(c.n)}</b><div class="m">${c.ids.length} servicios</div></div><div><b>${F(sum(S.items.filter(i=>c.ids.includes(i.id))))}/mes</b> <button class="lk" onclick="delC(${k})">✕</button></div></div>`).join(""):""}`}
+function ut(){const m=sum(S.items.filter(i=>sel.has(i.id)));$("ct").textContent=F(m)+" / mes";$("cx").textContent=F(m*3)+" al trimestre · "+F(m*12)+" al año"}
+function tg(id){sel.has(id)?sel.delete(id):sel.add(id);ut()}
+function flt(q){document.querySelectorAll(".cbi").forEach(e=>e.style.display=e.dataset.n.includes(q.toLowerCase())?"":"none")}
+function saveC(){if(!sel.size){alert("Marca al menos un servicio");return}const n=prompt("Nombre de la combinación");if(!n)return;S.cb.push({n,ids:[...sel]});save();render()}
+function delC(k){S.cb.splice(k,1);save();render()}
+function selAll(v){sel=v?new Set(S.items.map(i=>i.id)):new Set();render()}
+function avisos(){const a=alerts(),up=S.items.filter(i=>i.d).sort((x,y)=>x.d>y.d?1:-1).slice(0,6);
+return `<h1>Avisos</h1>${S.cfg.saved?"":`<div class="cd"><b>🔔 Activa tus notificaciones</b><p class="m">Tú decides qué avisos quieres recibir, con qué frecuencia y con cuánta antelación. Nada está activado por defecto.</p><button class="btn" onclick="go('cfg')">Configurar avisos</button></div>`}
+${a.length?`<h3>Avisos activos</h3>`+bn(a):""}<div class="r"><h3>Próximos vencimientos</h3>${S.cfg.saved?`<button class="lk" onclick="go('cfg')">Ajustes</button>`:""}</div>${up.length?up.map(row).join(""):`<p class="m">Añade fechas de vencimiento para verlas aquí.</p>`}`}
+function cfg(){const c=S.cfg;
+return `<div class="r"><button class="lk" onclick="go('avisos')">‹ Atrás</button><b>Configurar avisos</b><span></span></div><h3>¿Qué quieres que te avise?</h3><div class="cd">${TG.map(t=>`<label class="r tg"><span>${t[1]}</span><input type="checkbox" class="sw" id="c_${t[0]}" ${c[t[0]]?"checked":""}></label>`).join("")}<div class="m" style="margin-top:8px">Límite mensual (€)</div><input id="c_limV" type="number" value="${c.limV}"></div>
+<h3>Frecuencia</h3>${seg("fr",[["d","Diaria"],["s","Semanal"],["m","Mensual"]],c.fr)}<p class="m">La frecuencia se aplicará cuando conectes avisos por móvil o correo (próxima versión). Por ahora los avisos aparecen dentro de la app y en tu calendario.</p>
+<h3>Antelación</h3><select id="c_days">${[1,3,7,15].map(n=>`<option value="${n}" ${c.days==n?"selected":""}>${n} ${n>1?"días":"día"} antes</option>`).join("")}</select><button class="btn" onclick="saveCfg()">Guardar</button>`}
+function rc(){const c=S.cfg;if(!$("c_days"))return;TG.forEach(t=>c[t[0]]=$("c_"+t[0]).checked?1:0);c.limV=+$("c_limV").value||0;c.days=+$("c_days").value}
+function saveCfg(){rc();S.cfg.saved=1;save();go("avisos")}
+function perfil(){const p=S.p||{n:"Usuario",e:""};
+return `<h1>Perfil</h1><div class="cd row"><span class="ic av">${E(p.n.slice(0,2).toUpperCase())}</span><div><b>${E(p.n)}</b><div class="m">${E(p.e)}</div></div></div><div class="cd">${[["gastos","Mis gastos"],["avisos","Notificaciones"],["stats","Estadísticas"]].map(x=>`<div class="row lk2" onclick="go('${x[0]}')"><b>${x[1]}</b><span>›</span></div>`).join("")}<div class="row lk2" onclick="go('comb')"><b>Servicios combinados</b><span>›</span></div></div><button class="btn2" onclick="out()">Cerrar sesión</button><p class="m">Tus datos se guardan solo en este dispositivo.</p>`}
+function out(){if(confirm("¿Cerrar sesión?")){S.p=null;save();go("splash")}}
+function pick(k,v){if(k==="fr"){rc();S.cfg.fr=v}else V[k]=v;render()}
+function navH(){const act={det:"gastos",stats:"gastos",cfg:"avisos"}[scr]||scr;
+return "<div>"+[["home","🏠","Inicio"],["gastos","💳","Gastos"],["add","＋",""],["comb","🧮","Combinar"],["avisos","🔔","Avisos"],["perfil","👤","Perfil"]].map(x=>`<button class="${x[0]==="add"?"fab":x[0]===act?"on":""}" onclick="${x[0]==="add"?"V.mode='ind';":""}go('${x[0]}')"><span>${x[1]}</span>${x[2]}</button>`).join("")+"</div>"}
+function go(s,x){scr=s;if(s==="det")cur=x;scrollTo(0,0);render()}
+function render(){const h=scr==="splash"||scr==="reg";$("v").innerHTML=({splash,reg,home,gastos,stats,det,add,avisos,cfg,perfil,comb})[scr]();$("nav").innerHTML=h?"":navH();$("nav").style.display=h?"none":"flex";if(scr==="comb")ut()}
+function ics(id){const i=S.items.find(x=>x.id===id),r=+(i.r||S.cfg.days)||1;
+const rr=i.f==="m"?"FREQ=MONTHLY":i.f==="t"?"FREQ=MONTHLY;INTERVAL=3":"FREQ=YEARLY";
+const L=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//smartclic//ES","BEGIN:VEVENT","UID:"+i.id+"@smartclic","DTSTAMP:"+new Date().toISOString().replace(/[-:]|\.\d+/g,""),"DTSTART;VALUE=DATE:"+i.d.replace(/-/g,""),"RRULE:"+rr,"SUMMARY:Pago "+i.n+" ("+F(i.a)+")","DESCRIPTION:"+[i.p&&"Tel: "+i.p,i.w&&"Web: "+i.w].filter(Boolean).join(" - "),"BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:Vence "+i.n,"TRIGGER:-P"+(r-1)+"DT15H","END:VALARM","END:VEVENT","END:VCALENDAR"];
+const f={filename:"smartclic-"+i.n.replace(/\W+/g,"-")+".ics",data:new Blob([L.join("\r\n")],{type:"text/calendar"})};
+if(!window.claude){const a=document.createElement("a");a.href=URL.createObjectURL(f.data);a.download=f.filename;a.click();return}
+claude.use("downloads").then(d=>d?d.save(f):alert("La descarga no está disponible aquí")).catch(()=>{})}
+async function fileSel(){const f=$("fl").files[0],rd=$("rd");fileObj=f;rd.innerHTML="";if(!f||!f.type.startsWith("image/")||!window.claude)return;
+const s=await claude.use("sample");if(!s)return;rd.innerHTML=`<button class="btn2" onclick="readDoc()">✨ Leer datos de la foto (tú confirmas)</button>`}
+async function readDoc(){const rd=$("rd");rd.textContent="Leyendo…";
+try{const s=await claude.use("sample");prop=await s.json("Lee este recibo. Responde solo JSON con las claves: nombre, importe (número), frecuencia (m, t o a), fecha_vencimiento (AAAA-MM-DD), categoria (Hogar, Entretenimiento, Telecomunicaciones, Transporte u Otros), telefono, web. Usa null si no aparece o no estás seguro. No inventes datos.",{images:[fileObj],modelTier:"quick"});
+rd.innerHTML=`<div class="cd"><b>Esto encontré:</b><div class="m">${["nombre","importe","frecuencia","fecha_vencimiento","categoria","telefono","web"].map(k=>k.replace("_"," ")+": "+E(prop[k]==null?"—":prop[k])).join("<br>")}</div><div class="acts"><button class="btn2" onclick="applyP()">Usar estos datos</button><button class="btn2" onclick="$('rd').innerHTML=''">Descartar</button></div></div>`}
+catch(e){rd.textContent="No pude leerlo; rellénalo a mano."}}
+function applyP(){const m={n:"nombre",a:"importe",f:"frecuencia",d:"fecha_vencimiento",c:"categoria",p:"telefono",w:"web"};for(const k in m){const v=prop[m[k]],e=$(k);if(v!=null&&e)e.value=v}$("rd").innerHTML=""}
+let fcr={};
+function auto(){const b=brand($("n").value),h=$("ah");if(!b){h.textContent="";return}
+if(!$("w").value||$("w").dataset.a){$("w").value="https://www."+b[3];$("w").dataset.a=1}
+$("c").value=b[4];h.textContent="✓ Reconocido: web y categoría rellenadas. Para el teléfono, pulsa Buscar."}
+async function findC(){const n=$("n").value.trim(),o=$("fc");if(!n){alert("Escribe primero el nombre");return}
+const q="https://www.google.com/search?q="+encodeURIComponent(n+" atención al cliente teléfono");
+const gl=`<a class="btn2" href="${q}" target="_blank" rel="noopener">Buscar en Google</a>`;
+o.textContent="Buscando…";
+try{const s=window.claude&&await claude.use("sample");if(!s)throw 0;
+const r=await s.json("Indica el teléfono de atención al cliente y la web oficial en España de: "+n+". Responde solo JSON con las claves telefono y web. Usa null si no los conoces con seguridad. No inventes.",{modelTier:"quick"});
+fcr=r;o.innerHTML=`<div class="cd"><b>Esto encontré:</b><div class="m">Teléfono: ${E(r.telefono||"—")}<br>Web: ${E(r.web||"—")}</div><p class="m">⚠️ Verifica el número en la web oficial antes de usarlo.</p><div class="acts"><button class="btn2" onclick="useC()">Usar estos datos</button>${gl}</div></div>`}
+catch(e){o.innerHTML=`<p class="m">No pude buscarlo aquí.</p>`+gl}}
+function useC(){if(fcr.telefono)$("p").value=fcr.telefono;if(fcr.web){$("w").value=fcr.web;delete $("w").dataset.a}$("fc").innerHTML=""}
+render();
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+</script></body></html>
